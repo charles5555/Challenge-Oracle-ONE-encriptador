@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">   
+        <meta name="viewport" content="width=device-width"> 
+        <title>Encriptador/Des-encriptador</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <h1><img class="logo" src="Logo.png" alt="Logo de Alura"> </h1>
+            <nav>
+                <ul>
+                    <li >Encriptador/Des-encriptador</li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <ul class="cuerpo">
+                <li class="textoIngresado">
+                    <textarea cols= "45" rows="12" type="text" 
+                    class="palabra" required placeholder="Ingrese mensaje"
+                    onfocus="this.placeholder=''"
+                    onblur="this.placeholder='Ingrese mensaje'"></textarea>
+                    <p class="advertencia">
+                        No acepta los siguientes caracteres especiales: &,>,<. 
+                    </p>
+                    <div class="botones">
+                        <button class="botonEncriptar" onclick="leerencriptado()">
+                            Encriptar
+                        </button>
+                        <button class="botonDesencriptar" onclick="leerdesencriptado()">
+                            Desencriptar
+                        </button>
+                    </div>
+                    
+                </li>
+
+                <li class="textoSalida">
+                    <output id="mensajeEncriptado" class="pantallaTexto">
+                        <img class="mono" src="Muneco.png" alt="Persona buscando">
+                        <p class="primerMensaje">
+                            Ningún mensaje fue encontrado
+                        </p>
+
+                        <p class="segundoMensaje">
+                                Ingrese el texto que desee encriptar o desencriptar
+                        </p>
+                        
+                    </output>
+                    <button class="botoncopiar" id="botoncopiar" onclick="copiarAlPortapapeles('mensajeEncriptado')">
+                        Copiar
+                    </button>
+                    
+                
+                    
+                </li>
+            </ul>
+
+            
+            
+
+            
+        </main>
+        
+        
+        
+        
+    </body>
+    <script>
+
+        
+        var vocales = ["a","e","i","o","u","A","E","I","O","U","b","B","c","C","d","D","f","F","g","G","h","H","j","J","k","K","l","L","m","M","n","N","p","P","q","Q","r","R","s","S","t","T","v","V","w","W","x","X","y","Y","z","Z","?","@","!","_","-",".","%",",",";",":","=","*","$","#","[","]","{","}","+","|","ñ","á","é","í","ó","ú","ü","¿","~"];
+        var encriptacion = ["ai","enter","imes","ober","ufat","A_21","E@?","Ia3","O32*","Ule'","bta.32","B+]15","c$27","C#{21","d%a45","D!2321","fl}%2","F4/21@","g¡(293","G6)/=","h537,","HaAF","jaza321","J4?@,","k@aG39","K=$376","l.,;aZ","L22?a","m_!2","M-_a","n?!","NaFH","pla6","Paf?","q*32AL","Q}NK29","r!$FM37","RfA%","schula","Sucia38","t!AlB15","T*522227L","v;!lqzw","V:[,{25","wakla_tu","WP","xa","X73@","y32!;","Y%RP","zVictoria","ZVenganza","?fcAM@","@lm_anqy","!C_na","_jk390","-032@!",".iguana2","%ln",",.n390",";jlnq0",":fm39","=zwa","*AM105","$fgN","#gato@","[3251","]1523","{0369","}9630","+32?@;-","|PL9854*+","ñnnmm45","ábanico%!","émerson?","ígnaci@","óregano=","úteros:","ümano$","¿really?||","~ninoZ45_-"]
+        var espacios = [1,4,3,3,3,3,2,2,3,3,5,4,3,4,4,5,4,5,5,4,4,3,6,4,5,5,5,4,3,3,2,3,3,3,5,5,6,3,5,6,6,8,6,6,7,1,1,3,4,3,8,8,5,7,4,5,5,7,2,5,5,4,3,5,3,5,4,4,4,4,6,8,6,8,7,6,7,6,5,9,9]
+        var mencriptado = [];
+        var mdesencriptado = [];
+        var espacio = "";
+        var texto = document.querySelector(".palabra");
+        const re = /[&<>]/g;
+        
+        function dividirCadena(cadenaADividir,separador) {
+            const resultEncriptar = cadenaADividir.value.match(re);
+            if (resultEncriptar == null){
+                mencriptado = [];
+                var arrayDeCadenas = cadenaADividir.value.split(separador);
+            
+                for (var i=0; i < arrayDeCadenas.length; i++) {
+                    for (var j=0; j< vocales.length; j++){
+                        if(arrayDeCadenas[i] == vocales[j]){
+                            mencriptado[i] = encriptacion[j];
+                            break;
+                        }
+                        else{
+                            mencriptado[i] = arrayDeCadenas[i];
+                        }
+                    }
+                
+                
+                }
+            
+                var finalEncriptado = "";
+                for (var i=0; i < arrayDeCadenas.length; i++){
+                    finalEncriptado = finalEncriptado + mencriptado[i];
+                }
+                if(finalEncriptado != ""){
+                    document.getElementById("mensajeEncriptado").innerHTML = finalEncriptado;
+                    document.getElementById("botoncopiar").style.visibility="visible";
+                    cadenaADividir.value="";
+                }    
+            }else{
+                alert("No puede ingresar los siguientes caracteres especiales: &,<,>"); 
+            }
+        }
+
+        function leerencriptado(){
+            dividirCadena(texto,espacio);
+        }
+
+        function desencriptar(mensaje,separacion){
+            const resultDesencriptar = mensaje.value.match(re);
+            if (resultDesencriptar == null){
+                mdesencriptado = [];
+                var vectorEncriptado = mensaje.value.split(separacion);
+                for (var i=0; i < vectorEncriptado.length; i++){
+                    for (var j=0; j < vocales.length; j++){
+                        if(vectorEncriptado[i] == vocales[j]){
+                            mdesencriptado[i] = vocales[j];
+                            i = i+espacios[j];
+                            break;
+                        }
+                        else{
+                            mdesencriptado[i] = vectorEncriptado[i];
+                        }
+                    }
+                
+                }
+
+                var finalDesencriptado = "";
+                for (var i=0; i < vectorEncriptado.length; i++){
+                    if(mdesencriptado[i]!=undefined){
+                        finalDesencriptado = finalDesencriptado + mdesencriptado[i];
+                    
+                    }
+                
+                }
+                if(finalDesencriptado != ""){
+                    document.getElementById("mensajeEncriptado").innerHTML = finalDesencriptado;
+                    document.getElementById("botoncopiar").style.visibility="visible";
+                    mensaje.value="";
+                }
+            }else{
+                alert("No puede ingresar los siguientes caracteres especiales: &,<,>");
+            }    
+        }
+
+        function leerdesencriptado(){
+            desencriptar(texto,espacio);
+        }
+
+        function copiarAlPortapapeles(id_elemento) {
+            var aux = document.createElement("input");
+            aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+        }
+        
+
+        
+
+
+    </script>
+    <footer>
+        <p class="nombre">
+            Carlos Medel
+        </p>
+    </footer>
+</html>
