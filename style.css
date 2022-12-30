@@ -15,7 +15,7 @@ header{
 
 nav {
     position:absolute;
-    top: 50px;
+    top: 30px;
     left: 500px;
 }
 nav li{
@@ -27,7 +27,7 @@ nav li{
 }
 
 .cuerpo{
-    width: 1800px;
+    width: 1200px;
     margin: 0 auto;
     padding: 0 0 50px 50px;
 }
@@ -60,7 +60,7 @@ nav li{
     /*background: blue;*/
     width: 30% ;
     margin: 0 1.5%;
-    padding: 30px 20px;
+    padding: 30px 80px;
     font-size: 20px;
     vertical-align: top;
     box-shadow: 0px 24px 32px -8px rgba(0, 0, 0, 0.08);
@@ -70,14 +70,16 @@ nav li{
 }
 
 .pantallaTexto{
-    font-size: 20px;
+    font-size: 15px;
     color: rgb(126, 126, 126);
     display: block;
+    width: 90%;
+    padding: 0 0 0 0;
     
 }
 
 .mono{
-    padding: 0 0 0 80px;
+    padding: 0 0 0 10px;
 }
 
 .primerMensaje{
@@ -85,6 +87,7 @@ nav li{
     font-weight: bold;
     font-size: 28px;
     color: darkblue;
+    margin: 0 0 20px 0;
 }
 
 .segundoMensaje{
@@ -181,13 +184,26 @@ nav li{
     visibility: hidden;
 }
 
-.nombre{
-    text-align: center;
+footer{
+    background: darkblue;
+    padding: 100px 0 100px 0;
 }
 
-@media screen and (max-width:1020px){
+.nombre{
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.linkedin{
+    width: 2%;
+    height: 2%;
+    margin: 0 0 0 20%;
+}
+
+@media screen and (max-width:1024px){
     header{
-        width: 800px;
+        width: 900px;
         
     }
 
@@ -223,11 +239,15 @@ nav li{
     .mono{
         display: none;
     }
+
+    footer{
+        width: 1220px;
+    }
 }
 
 @media screen and (max-width:500px){
     header{
-        width: 350px;
+        width: 450px;
         
     }
 
@@ -284,7 +304,15 @@ nav li{
         display: none;
     }
 
+    footer{
+        width: 520px;
+        height: 100%;
+        background: darkblue;
+        padding: 100px 0 100px 0;
+    }
+
     .nombre{
+        font-size: 15px;
         left: 200px;
     }
 }
